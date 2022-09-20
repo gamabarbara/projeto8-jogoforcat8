@@ -1,9 +1,10 @@
+import forca from "./assets/forca0.png";
 export default function App(props) {
   return (
-    <div className="container">
+    <>
       <div className="content">
         <div className="content-image">
-          <img src="./assets/forca0.png" />
+          <img src={forca} />
         </div>
         <div className="content-button">
           <button className="content-button-button">Escolher Palavra</button>
@@ -17,7 +18,7 @@ export default function App(props) {
         <input></input>
         <button>Chutar</button>
       </div>
-    </div>
+    </>
   );
 }
 
