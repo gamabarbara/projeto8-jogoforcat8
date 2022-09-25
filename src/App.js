@@ -12,24 +12,15 @@ import forca6 from "./assets/forca6.png";
 import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 
-
-
-
 export default function App(props) {
-  const stepGame = {
-    errorsGame: 6,
-    images: [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
-  };
-
   return (
     <>
       <GlobalStyle />
       <Content>
         <GameImage />
         <ButtonGame />
-        <div className="content-gessing">
+
         <RandomWord />
-        </div>
       </Content>
       <div className="letters">
         <Letter name={props.name} />
@@ -114,8 +105,6 @@ function StepsGame(props) {
     steps: [forca0, forca1, forca2, forca3, forca4, forca5, forca6],
   };
 }
-
-
 
 const Content = styled.div`
   display: flex;
