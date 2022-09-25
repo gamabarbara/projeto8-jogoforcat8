@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components"
+
+const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -122,3 +125,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+* {
+  font-family: "Roboto", sans-serif;
+}
+`
+
+export default GlobalStyle

@@ -1,4 +1,6 @@
 import React from "react";
+import styled from 'styled-components';
+import GlobalStyle from "./GlobalStyle";
 import forca0 from "./assets/forca0.png";
 import forca1 from "./assets/forca1.png";
 import forca2 from "./assets/forca2.png";
@@ -11,13 +13,14 @@ import { RandomWord } from "./palavras";
 export default function App(props) {
   return (
     <>
-      <div className="content">
+      <GlobalStyle />
+      <Content>
         <GameImage />
         <ButtonGame />
         <div className="content-gessing">
           <RandomWord />
         </div>
-      </div>
+      </Content>
       <div className="letters">
         <Letter name={props.name} />
       </div>
@@ -57,47 +60,150 @@ function Letter() {
   ];
 
   return (
-    <div className="letters-container">
-      {alfabeto.map((a) => (
-        <div>
-          <button className="letter-button">{a.toUpperCase()}</button>
+    <LettersContainer>
+      {alfabeto.map((a, index) => (
+        <div key={index}>
+          <LetterButton>{a.toUpperCase()}</LetterButton>
         </div>
       ))}
-    </div>
+    </LettersContainer>
   );
 }
 
 function GameImage() {
   return (
-    <div className="content-image">
-      <img src={forca0} />
-    </div>
+    <>
+      <Image src={forca0} />
+    </>
   );
 }
 
 function ButtonGame() {
   return (
     <div className="content-button">
-      <button className="content-button-button" onClick={RandomWord}>Escolher Palavra</button>
+      <ChooseWordButton onClick={RandomWord}>
+        Escolher Palavra
+      </ChooseWordButton>
     </div>
   );
 }
 
 function GuessWord() {
   return (
-    <div className="input">
-      <p className="text">Já sei a palavra!</p>
+    <Input>
+      <Text>Já sei a palavra!</Text>
       <input />
-      <button className="guess-button">Chutar</button>
-    </div>
+      <GuessButton>Chutar</GuessButton>
+    </Input>
   );
 }
 
 function StepsGame(props) {
-  const [errors, setErrors] = React.useState(0)
-  const [word, setWord] = React.useState()
+  const [errors, setErrors] = React.useState(0);
+  const [word, setWord] = React.useState();
   const steps = {
-    maxErrors: 6, 
-    steps: [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
-  }
+    maxErrors: 6,
+    steps: [forca0, forca1, forca2, forca3, forca4, forca5, forca6],
+  };
 }
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const LettersContainer = styled.div`
+  padding-top: 100px;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+const LetterButton = styled.button`
+  width: 45px;
+  height: 45px;
+  background-color: #d9e5f1;
+  border: 2px solid #84a3c1;
+  color: #4578c5;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  margin: 5px 5px 5px 5px;
+  cursor: pointer;
+  box-shadow: 0 4px #999;
+  outline: none;
+  &:hover {
+    background-color: #a3bed8;
+    transition: all 400ms;
+    &:active {
+      background-color: #657d93;
+      box-shadow: 0 5px #666;
+      transform: translateY(5px);
+    }
+  }
+`
+
+const ChooseWordButton = styled.button`
+  background-color: #27ae60;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  border: none;
+  box-shadow: 0 0 5px #000000;
+  margin-left: 100px;
+  margin-top: 30px;
+  cursor: pointer;
+`
+
+const Text = styled.p`
+  font-size: 18px;
+  margin-right: 15px;
+  font-family: "Roboto", sans-serif;
+`
+
+const Input = styled.div`
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+
+  input {
+    width: 350px;
+  height: 30px;
+  border-radius: 5px;
+  color: #84a3c1;
+  border: 2px solid gray;
+  box-shadow: 0 0 2px gray;
+  }
+`
+
+const GuessButton = styled.button`
+  width: 80px;
+  height: 40px;
+  margin-left: 15px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #d9e5f1;
+  border: 2px solid #84a3c1;
+  color: #4578c5;
+  cursor: pointer;
+`
+
+const Image = styled.img`
+  width: 400px;
+  height: 450px;
+`
