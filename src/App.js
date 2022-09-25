@@ -1,6 +1,6 @@
 import React from "react";
-import styled from 'styled-components';
-import GlobalStyle from "./GlobalStyle";
+import { RandomWord } from "./palavras";
+
 import forca0 from "./assets/forca0.png";
 import forca1 from "./assets/forca1.png";
 import forca2 from "./assets/forca2.png";
@@ -8,9 +8,19 @@ import forca3 from "./assets/forca3.png";
 import forca4 from "./assets/forca4.png";
 import forca5 from "./assets/forca5.png";
 import forca6 from "./assets/forca6.png";
-import { RandomWord } from "./palavras";
+
+import styled from "styled-components";
+import GlobalStyle from "./GlobalStyle";
+
+
+
 
 export default function App(props) {
+  const stepGame = {
+    errorsGame: 6,
+    images: [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -18,7 +28,7 @@ export default function App(props) {
         <GameImage />
         <ButtonGame />
         <div className="content-gessing">
-          <RandomWord />
+        <RandomWord />
         </div>
       </Content>
       <div className="letters">
@@ -30,7 +40,7 @@ export default function App(props) {
 }
 
 function Letter() {
-  const alfabeto = [
+  const letters = [
     "a",
     "b",
     "c",
@@ -61,9 +71,9 @@ function Letter() {
 
   return (
     <LettersContainer>
-      {alfabeto.map((a, index) => (
+      {letters.map((l, index) => (
         <div key={index}>
-          <LetterButton>{a.toUpperCase()}</LetterButton>
+          <LetterButton>{l.toUpperCase()}</LetterButton>
         </div>
       ))}
     </LettersContainer>
@@ -81,9 +91,7 @@ function GameImage() {
 function ButtonGame() {
   return (
     <div className="content-button">
-      <ChooseWordButton onClick={RandomWord}>
-        Escolher Palavra
-      </ChooseWordButton>
+      <ChooseWordButton onClick={RandomWord}>Escolher Palavra</ChooseWordButton>
     </div>
   );
 }
@@ -106,6 +114,8 @@ function StepsGame(props) {
     steps: [forca0, forca1, forca2, forca3, forca4, forca5, forca6],
   };
 }
+
+
 
 const Content = styled.div`
   display: flex;
@@ -150,7 +160,7 @@ const LetterButton = styled.button`
       transform: translateY(5px);
     }
   }
-`
+`;
 
 const ChooseWordButton = styled.button`
   background-color: #27ae60;
@@ -165,13 +175,13 @@ const ChooseWordButton = styled.button`
   margin-left: 100px;
   margin-top: 30px;
   cursor: pointer;
-`
+`;
 
 const Text = styled.p`
   font-size: 18px;
   margin-right: 15px;
   font-family: "Roboto", sans-serif;
-`
+`;
 
 const Input = styled.div`
   padding-top: 50px;
@@ -182,13 +192,13 @@ const Input = styled.div`
 
   input {
     width: 350px;
-  height: 30px;
-  border-radius: 5px;
-  color: #84a3c1;
-  border: 2px solid gray;
-  box-shadow: 0 0 2px gray;
+    height: 30px;
+    border-radius: 5px;
+    color: #84a3c1;
+    border: 2px solid gray;
+    box-shadow: 0 0 2px gray;
   }
-`
+`;
 
 const GuessButton = styled.button`
   width: 80px;
@@ -201,9 +211,9 @@ const GuessButton = styled.button`
   border: 2px solid #84a3c1;
   color: #4578c5;
   cursor: pointer;
-`
+`;
 
 const Image = styled.img`
   width: 400px;
   height: 450px;
-`
+`;
