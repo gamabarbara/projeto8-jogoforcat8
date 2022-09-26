@@ -22,8 +22,9 @@ class Hangman extends Component {
       mistake: 0,
       guessed: new Set([]),
       answer: randomWord(),
-      gameStarted: false
+      chute: new Set([]),
     };
+    this.guessAnswer = this.guessAnswer.bind(this);
   }
 
   handleGuess = (e) => {
@@ -42,7 +43,6 @@ class Hangman extends Component {
   }
 
   generateButtons() {
-    const gameStarted = this.state.gameStarted 
     return "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => (
       <LetterButton
         key={letter}
@@ -63,34 +63,35 @@ class Hangman extends Component {
     });
   };
 
-
-
-  startGame() {
-    this.state.gameStarted = true
-    alert("comecou")
+  
+  guessAnswer() {
+    if (this.state.chute === this.state.answer) {
+      this.guessAnswer()
+    } else {
+      this.resetButton()
+      alert("errou")
+    }
   }
 
-  GuessWord() {
-    return (
-      <Input>
-        <p>Já sei a palavra!</p>
-        <input />
-        <GuessButton>Chutar</GuessButton>
-      </Input>
-    );
+
+  handleChange = (e) => {
+    let text = e.target.value;
+    this.setState({
+      chute: text
+    })
   }
 
   render() {
     const gameOver = this.state.mistake >= this.props.maxWrong;
-    const isWinner = this.guessedWord().join("") === this.state.answer;
+    let isWinner = this.guessedWord().join("") === this.state.answer;
     let gameStat = this.generateButtons();
 
-
     if (isWinner) {
+      alert("Ganhou")
     }
 
     if (gameOver) {
-
+      alert("Perdeu")
     }
 
     return (
@@ -98,15 +99,21 @@ class Hangman extends Component {
         <TextCenter>
           <Image src={this.props.images[this.state.mistake]} alt="" />
           <div className="content-button">
-        <ChooseWordButton onClick={this.startGame}>Escolher Palavra</ChooseWordButton>
+        <ChooseWordButton>Escolher Palavra</ChooseWordButton>
       </div>
         </TextCenter>
         <div className="text-center">
+        <Text>{this.state.chute === this.state.answer ? this.state.answer : this.resetButton}</Text>
           <Text>{!gameOver ? <Ganhou>{this.guessedWord()}</Ganhou> : <Perdeu>{this.state.answer}</Perdeu>}</Text>
           <LetterContainer>
             <p>{gameStat}</p>
           </LetterContainer>
-          <this.GuessWord />
+          <Input>
+        <p>Já sei a palavra!</p>
+        <input  onChange={ this.handleChange}
+        value={this.text} />
+        <GuessButton onClick={this.onClick}>Chutar</GuessButton>
+      </Input>
           <ResetContainer>
             <ResetButton onClick={this.resetButton}>Reset</ResetButton>
           </ResetContainer>
