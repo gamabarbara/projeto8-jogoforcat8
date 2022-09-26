@@ -22,6 +22,7 @@ class Hangman extends Component {
       mistake: 0,
       guessed: new Set([]),
       answer: randomWord(),
+      gameStarted: false
     };
   }
 
@@ -41,6 +42,7 @@ class Hangman extends Component {
   }
 
   generateButtons() {
+    const gameStarted = this.state.gameStarted 
     return "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => (
       <LetterButton
         key={letter}
@@ -61,12 +63,11 @@ class Hangman extends Component {
     });
   };
 
-  ButtonGame() {
-    return (
-      <div className="content-button">
-        <ChooseWordButton>Escolher Palavra</ChooseWordButton>
-      </div>
-    );
+
+
+  startGame() {
+    this.state.gameStarted = true
+    alert("comecou")
   }
 
   GuessWord() {
@@ -84,22 +85,24 @@ class Hangman extends Component {
     const isWinner = this.guessedWord().join("") === this.state.answer;
     let gameStat = this.generateButtons();
 
+
     if (isWinner) {
-      gameStat = "Ganhou";
     }
 
     if (gameOver) {
-      gameStat = "Perdeu";
+
     }
 
     return (
       <div className="Hangman container">
         <TextCenter>
           <Image src={this.props.images[this.state.mistake]} alt="" />
-          <this.ButtonGame />
+          <div className="content-button">
+        <ChooseWordButton onClick={this.startGame}>Escolher Palavra</ChooseWordButton>
+      </div>
         </TextCenter>
         <div className="text-center">
-          <Text>{!gameOver ? this.guessedWord() : this.state.answer}</Text>
+          <Text>{!gameOver ? <Ganhou>{this.guessedWord()}</Ganhou> : <Perdeu>{this.state.answer}</Perdeu>}</Text>
           <LetterContainer>
             <p>{gameStat}</p>
           </LetterContainer>
@@ -264,3 +267,11 @@ const ResetContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const Ganhou = styled.p`
+  color: green;
+`
+
+const Perdeu = styled.p`
+color: red;
+`
