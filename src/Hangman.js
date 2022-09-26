@@ -35,25 +35,22 @@ class Hangman extends Component {
 
   guessedWord() {
     return this.state.answer
-      .toUpperCase()
+
       .split("")
       .map((letter) => (this.state.guessed.has(letter) ? letter : " _ "));
   }
 
   generateButtons() {
-    return "abcdefghijklmnopqrstuvwxyz"
-      .toUpperCase()
-      .split("")
-      .map((letter) => (
-        <LetterButton
-          key={letter}
-          value={letter}
-          onClick={this.handleGuess}
-          disabled={this.state.guessed.has(letter)}
-        >
-          {letter}
-        </LetterButton>
-      ));
+    return "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => (
+      <LetterButton
+        key={letter}
+        value={letter}
+        onClick={this.handleGuess}
+        disabled={this.state.guessed.has(letter)}
+      >
+        {letter}
+      </LetterButton>
+    ));
   }
 
   resetButton = () => {
@@ -72,7 +69,7 @@ class Hangman extends Component {
     );
   }
 
-GuessWord() {
+  GuessWord() {
     return (
       <Input>
         <p>Já sei a palavra!</p>
@@ -95,8 +92,6 @@ GuessWord() {
       gameStat = "Perdeu";
     }
 
-
-
     return (
       <div className="Hangman container">
         <TextCenter>
@@ -110,11 +105,8 @@ GuessWord() {
           </LetterContainer>
           <this.GuessWord />
           <ResetContainer>
-            <ResetButton onClick={this.resetButton}>
-            Reset
-          </ResetButton>
+            <ResetButton onClick={this.resetButton}>Reset</ResetButton>
           </ResetContainer>
-          
         </div>
       </div>
     );
@@ -158,11 +150,16 @@ const LetterButton = styled.button`
   &:hover {
     background-color: #a3bed8;
     transition: all 400ms;
-    &:active {
-      background-color: #657d93;
-      box-shadow: 0 5px #666;
-      transform: translateY(5px);
-    }
+  }
+  &:active {
+    background-color: #657d93;
+    box-shadow: 0 5px #666;
+    transform: translateY(5px);
+  }
+  &:disabled {
+    background-color: #7d868f;
+    transform: none;
+    cursor: default;
   }
 `;
 
@@ -190,6 +187,19 @@ const ChooseWordButton = styled.button`
   margin-left: 100px;
   margin-top: 30px;
   cursor: pointer;
+  &:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(5px);
+  }
+  &:hover {
+    background-color: #3e9261;
+    transition: all 400ms;
+  }
+  &:disabled {
+    background-color: #3e9261;
+    cursor: default;
+    transform: none;
+  }
 `;
 
 const Input = styled.div`
@@ -223,6 +233,15 @@ const GuessButton = styled.button`
   border: 2px solid #84a3c1;
   color: #4578c5;
   cursor: pointer;
+  &:hover {
+    background-color: #a3bed8;
+    transition: all 400ms;
+  }
+  &:disabled {
+    background-color: #7d868f;
+    transform: none;
+    cursor: default;
+  }
 `;
 
 const ResetButton = styled.button`
@@ -235,10 +254,13 @@ const ResetButton = styled.button`
   border: 2px solid red;
   color: red;
   cursor: pointer;
-`
+  &:hover {
+    opacity: .8;
+  }
+`;
 
 const ResetContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
