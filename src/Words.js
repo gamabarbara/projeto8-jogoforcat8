@@ -1,5 +1,4 @@
-import styled from "styled-components";
-const palavras = [
+const words = [
   "abacate",
   "abacaxi",
   "abelha",
@@ -233,23 +232,10 @@ const palavras = [
   "zumbido",
 ];
 
-function RandomWord() {
-  const random = Math.floor(Math.random() * palavras.length);
-  const randomWords = palavras[random];
-  const res = randomWords.split("");
-
-  return (
-    <ContentGuessing>
-      {res.map((e, i) => e.replace(e, " __ "))}
-    </ContentGuessing>
-  );
+function randomWord() {
+  return words[Math.floor(Math.random() * words.length)]
 }
 
-const ContentGuessing = styled.div`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 400px;
-  margin-right: 100px;
-`
-export { RandomWord };
-export default palavras;
+export { randomWord } 
+
+
